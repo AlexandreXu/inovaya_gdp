@@ -1,0 +1,8 @@
+# Normaliser les fins de ligne en LF pour compatibilité Linux/Frappe
+* text=auto eol=lf
+
+# Fichiers binaires — pas de conversion
+*.pdf binary
+*.docx binary
+*.png binary
+*.jpg binary

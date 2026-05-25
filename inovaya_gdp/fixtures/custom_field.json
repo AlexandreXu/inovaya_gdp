@@ -1,0 +1,80 @@
+[
+  {
+    "doctype": "Custom Field",
+    "name": "Project-inovaya_section",
+    "dt": "Project",
+    "label": "InovaYa",
+    "fieldname": "inovaya_section",
+    "fieldtype": "Section Break",
+    "insert_after": "notes",
+    "collapsible": 1,
+    "collapsible_depends_on": ""
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "Project-inovaya_business_vertical",
+    "dt": "Project",
+    "label": "Verticale Métier",
+    "fieldname": "inovaya_business_vertical",
+    "fieldtype": "Select",
+    "options": "\nTraitement Eau Industriel\nTEE Collectivités\nR&D\nDigital\nTransversal",
+    "insert_after": "inovaya_section",
+    "in_list_view": 0,
+    "in_filter": 1,
+    "in_standard_filter": 1,
+    "description": "Verticale métier associée au projet — utilisée pour l'analyse des heures par verticale dans les rapports managers."
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "Project-inovaya_column_break",
+    "dt": "Project",
+    "label": "",
+    "fieldname": "inovaya_column_break",
+    "fieldtype": "Column Break",
+    "insert_after": "inovaya_business_vertical"
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "Project-inovaya_project_impact_summary",
+    "dt": "Project",
+    "label": "Synthèse d'Impact",
+    "fieldname": "inovaya_project_impact_summary",
+    "fieldtype": "Small Text",
+    "insert_after": "inovaya_column_break",
+    "description": "Résumé des impacts environnementaux et sociaux attendus du projet (module d'impact détaillé prévu en phase 2)."
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "Project-inovaya_billing_section",
+    "dt": "Project",
+    "label": "Facturation",
+    "fieldname": "inovaya_billing_section",
+    "fieldtype": "Section Break",
+    "insert_after": "inovaya_project_impact_summary",
+    "collapsible": 1
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "Project-inovaya_billing_notes",
+    "dt": "Project",
+    "label": "Notes Facturation",
+    "fieldname": "inovaya_billing_notes",
+    "fieldtype": "Small Text",
+    "insert_after": "inovaya_billing_section",
+    "description": "Jalons et conditions de paiement spécifiques au projet. La génération automatique de demandes de facturation depuis un jalon est prévue en phase 2."
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "Task-inovaya_task_vertical",
+    "dt": "Task",
+    "label": "Verticale Métier",
+    "fieldname": "inovaya_task_vertical",
+    "fieldtype": "Select",
+    "options": "\nTraitement Eau Industriel\nTEE Collectivités\nR&D\nDigital\nTransversal",
+    "insert_after": "type",
+    "in_list_view": 0,
+    "in_filter": 1,
+    "in_standard_filter": 1,
+    "description": "Permet aux managers d'analyser les heures passées par verticale métier (ex : P&ID, Textile)."
+  }
+]

@@ -1,0 +1,149 @@
+[
+  {
+    "doctype": "Workspace",
+    "name": "InovaYa Projets",
+    "title": "InovaYa — Projets",
+    "category": "Modules",
+    "icon": "project",
+    "is_hidden": 0,
+    "module": "",
+    "public": 1,
+    "restrict_to_domain": "",
+    "sequence_id": 100,
+    "type": "Custom",
+    "roles": [],
+    "charts": [],
+    "number_cards": [],
+    "shortcuts": [
+      { "type": "DocType",  "label": "Projets",            "link_to": "Project",          "icon": "project",    "color": "Blue"   },
+      { "type": "DocType",  "label": "Tâches",             "link_to": "Task",             "icon": "task",       "color": "Green"  },
+      { "type": "DocType",  "label": "Modèles de Projet",  "link_to": "Project Template", "icon": "note",       "color": "Orange" },
+      { "type": "DocType",  "label": "Feuilles de Temps",  "link_to": "Timesheet",        "icon": "clock",      "color": "Purple" },
+      { "type": "DocType",  "label": "Types de Projet",    "link_to": "Project Type",     "icon": "list",       "color": "Gray"   }
+    ],
+    "content": "[]"
+  },
+  {
+    "doctype": "Workspace",
+    "name": "InovaYa Temps",
+    "title": "InovaYa — Temps",
+    "category": "Modules",
+    "icon": "clock",
+    "is_hidden": 0,
+    "module": "",
+    "public": 1,
+    "restrict_to_domain": "",
+    "sequence_id": 101,
+    "type": "Custom",
+    "roles": [],
+    "charts": [],
+    "number_cards": [],
+    "shortcuts": [
+      { "type": "DocType",       "label": "Feuilles de Temps",               "link_to": "Timesheet",                    "icon": "clock",     "color": "Blue"   },
+      { "type": "Report",        "label": "Rapport — Heures par Projet",      "link_to": "Daily Timesheet Summary",      "icon": "bar-chart", "color": "Green"  },
+      { "type": "Report",        "label": "Rapport — Heures par Employé",     "link_to": "Employee Hours Utilization Based On Timesheet", "icon": "user", "color": "Orange" },
+      { "type": "DocType",       "label": "Activités (types de tâches)",      "link_to": "Activity Type",                "icon": "tag",       "color": "Gray"   }
+    ],
+    "content": "[]"
+  },
+  {
+    "doctype": "Workspace",
+    "name": "InovaYa Achats Projet",
+    "title": "InovaYa — Achats Projet",
+    "category": "Modules",
+    "icon": "shopping-cart",
+    "is_hidden": 0,
+    "module": "",
+    "public": 1,
+    "restrict_to_domain": "",
+    "sequence_id": 102,
+    "type": "Custom",
+    "roles": [],
+    "charts": [],
+    "number_cards": [],
+    "shortcuts": [
+      { "type": "DocType", "label": "Demandes de Matériel",  "link_to": "Material Request", "icon": "file-text",      "color": "Blue"   },
+      { "type": "DocType", "label": "Commandes Fournisseur", "link_to": "Purchase Order",   "icon": "shopping-cart",  "color": "Orange" },
+      { "type": "DocType", "label": "Factures Fournisseur",  "link_to": "Purchase Invoice", "icon": "file",           "color": "Red"    },
+      { "type": "DocType", "label": "Fournisseurs",          "link_to": "Supplier",         "icon": "user",           "color": "Gray"   },
+      { "type": "DocType", "label": "Articles",              "link_to": "Item",             "icon": "package",        "color": "Green"  }
+    ],
+    "content": "[]"
+  },
+  {
+    "doctype": "Workspace",
+    "name": "InovaYa Finance Projet",
+    "title": "InovaYa — Finance Projet",
+    "category": "Modules",
+    "icon": "tool",
+    "is_hidden": 0,
+    "module": "",
+    "public": 1,
+    "restrict_to_domain": "",
+    "sequence_id": 103,
+    "type": "Custom",
+    "roles": [],
+    "charts": [],
+    "number_cards": [],
+    "shortcuts": [
+      { "type": "DocType", "label": "Budgets",               "link_to": "Budget",          "icon": "bar-chart",   "color": "Blue"   },
+      { "type": "DocType", "label": "Centres de Coût",       "link_to": "Cost Center",     "icon": "git-branch",  "color": "Gray"   },
+      { "type": "DocType", "label": "Commandes Client",      "link_to": "Sales Order",     "icon": "shopping-bag","color": "Green"  },
+      { "type": "DocType", "label": "Factures Client",       "link_to": "Sales Invoice",   "icon": "file-text",   "color": "Orange" },
+      { "type": "DocType", "label": "Paiements",             "link_to": "Payment Entry",   "icon": "credit-card", "color": "Purple" }
+    ],
+    "content": "[]"
+  },
+  {
+    "doctype": "Workspace",
+    "name": "InovaYa RH Absences",
+    "title": "InovaYa — RH / Absences",
+    "category": "Modules",
+    "icon": "users",
+    "is_hidden": 0,
+    "module": "",
+    "public": 1,
+    "restrict_to_domain": "",
+    "sequence_id": 104,
+    "type": "Custom",
+    "roles": [],
+    "charts": [],
+    "number_cards": [],
+    "shortcuts": [
+      { "type": "DocType", "label": "Employés",              "link_to": "Employee",           "icon": "user",       "color": "Blue"   },
+      { "type": "DocType", "label": "Demandes de Congé",     "link_to": "Leave Application",  "icon": "calendar",   "color": "Orange" },
+      { "type": "DocType", "label": "Types de Congé",        "link_to": "Leave Type",         "icon": "tag",        "color": "Gray"   },
+      { "type": "DocType", "label": "Allocation de Congés",  "link_to": "Leave Allocation",   "icon": "check",      "color": "Green"  },
+      { "type": "DocType", "label": "Calendriers de congés", "link_to": "Holiday List",       "icon": "flag",       "color": "Purple" }
+    ],
+    "content": "[]"
+  },
+  {
+    "doctype": "Workspace",
+    "name": "InovaYa Administration GdP",
+    "title": "InovaYa — Administration GdP",
+    "category": "Administration",
+    "icon": "settings",
+    "is_hidden": 0,
+    "module": "",
+    "public": 0,
+    "restrict_to_domain": "",
+    "sequence_id": 105,
+    "type": "Custom",
+    "roles": [
+      { "role": "Responsable GdP" },
+      { "role": "System Manager" }
+    ],
+    "charts": [],
+    "number_cards": [],
+    "shortcuts": [
+      { "type": "DocType", "label": "Rôles",               "link_to": "Role",           "icon": "shield",   "color": "Blue"   },
+      { "type": "DocType", "label": "Utilisateurs",         "link_to": "User",           "icon": "user",     "color": "Gray"   },
+      { "type": "DocType", "label": "Champs Personnalisés", "link_to": "Custom Field",   "icon": "tool",     "color": "Orange" },
+      { "type": "DocType", "label": "Modèles de Projet",   "link_to": "Project Template","icon": "copy",    "color": "Green"  },
+      { "type": "DocType", "label": "Types de Projet",     "link_to": "Project Type",   "icon": "list",     "color": "Purple" },
+      { "type": "DocType", "label": "Workflows",           "link_to": "Workflow",        "icon": "git-merge","color": "Red"   }
+    ],
+    "content": "[]"
+  }
+]

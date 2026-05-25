@@ -1,0 +1,2 @@
+# Frappe est la seule dépendance — elle est fournie par le bench ERPNext v16
+# frappe>=16.0.0,<17.0.0

@@ -1,0 +1,27 @@
+[
+  {
+    "doctype": "Project Type",
+    "name": "IND",
+    "is_default": 0
+  },
+  {
+    "doctype": "Project Type",
+    "name": "CLIENT TEE",
+    "is_default": 0
+  },
+  {
+    "doctype": "Project Type",
+    "name": "R&D",
+    "is_default": 0
+  },
+  {
+    "doctype": "Project Type",
+    "name": "Digital",
+    "is_default": 0
+  },
+  {
+    "doctype": "Project Type",
+    "name": "Interne",
+    "is_default": 0
+  }
+]

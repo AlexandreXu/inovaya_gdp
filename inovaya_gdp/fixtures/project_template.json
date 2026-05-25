@@ -1,0 +1,73 @@
+[
+  {
+    "doctype": "Project Template",
+    "name": "InovaYa - CLIENT TEE",
+    "tasks": [
+      { "title": "Diagnostic",                  "begin_on": 0,  "duration": 10, "is_milestone": 0 },
+      { "title": "Cadrage",                      "begin_on": 10, "duration": 5,  "is_milestone": 0 },
+      { "title": "Jalon — Lancement officiel",   "begin_on": 15, "duration": 0,  "is_milestone": 1 },
+      { "title": "Conception technique",         "begin_on": 15, "duration": 20, "is_milestone": 0 },
+      { "title": "Achats et approvisionnement",  "begin_on": 25, "duration": 20, "is_milestone": 0 },
+      { "title": "Jalon — Revue de conception",  "begin_on": 35, "duration": 0,  "is_milestone": 1 },
+      { "title": "Réalisation / Installation",   "begin_on": 45, "duration": 30, "is_milestone": 0 },
+      { "title": "Mise en service",              "begin_on": 75, "duration": 10, "is_milestone": 0 },
+      { "title": "Jalon — Réception provisoire", "begin_on": 85, "duration": 0,  "is_milestone": 1 },
+      { "title": "Clôture projet",               "begin_on": 85, "duration": 5,  "is_milestone": 0 },
+      { "title": "Jalon — Réception définitive", "begin_on": 90, "duration": 0,  "is_milestone": 1 }
+    ]
+  },
+  {
+    "doctype": "Project Template",
+    "name": "InovaYa - IND",
+    "tasks": [
+      { "title": "Cadrage industriel",           "begin_on": 0,  "duration": 10, "is_milestone": 0 },
+      { "title": "Ingénierie",                   "begin_on": 10, "duration": 20, "is_milestone": 0 },
+      { "title": "Jalon — Validation ingénierie","begin_on": 30, "duration": 0,  "is_milestone": 1 },
+      { "title": "Approvisionnement",            "begin_on": 20, "duration": 15, "is_milestone": 0 },
+      { "title": "Installation",                 "begin_on": 35, "duration": 20, "is_milestone": 0 },
+      { "title": "Tests et validation",          "begin_on": 55, "duration": 10, "is_milestone": 0 },
+      { "title": "Jalon — Réception client",     "begin_on": 65, "duration": 0,  "is_milestone": 1 },
+      { "title": "Clôture",                      "begin_on": 65, "duration": 5,  "is_milestone": 0 }
+    ]
+  },
+  {
+    "doctype": "Project Template",
+    "name": "InovaYa - R&D",
+    "tasks": [
+      { "title": "Cadrage hypothèse",            "begin_on": 0,  "duration": 10, "is_milestone": 0 },
+      { "title": "Jalon — Go/No-Go recherche",   "begin_on": 10, "duration": 0,  "is_milestone": 1 },
+      { "title": "Expérimentation",              "begin_on": 10, "duration": 30, "is_milestone": 0 },
+      { "title": "Analyse des résultats",        "begin_on": 40, "duration": 10, "is_milestone": 0 },
+      { "title": "Itération",                    "begin_on": 50, "duration": 20, "is_milestone": 0 },
+      { "title": "Documentation technique",      "begin_on": 70, "duration": 10, "is_milestone": 0 },
+      { "title": "Valorisation / Publication",   "begin_on": 80, "duration": 10, "is_milestone": 0 },
+      { "title": "Jalon — Livraison R&D",        "begin_on": 90, "duration": 0,  "is_milestone": 1 }
+    ]
+  },
+  {
+    "doctype": "Project Template",
+    "name": "InovaYa - Digital",
+    "tasks": [
+      { "title": "Cadrage besoin",               "begin_on": 0,  "duration": 5,  "is_milestone": 0 },
+      { "title": "Spécifications fonctionnelles","begin_on": 5,  "duration": 10, "is_milestone": 0 },
+      { "title": "Jalon — Validation specs",     "begin_on": 15, "duration": 0,  "is_milestone": 1 },
+      { "title": "Développement",                "begin_on": 15, "duration": 30, "is_milestone": 0 },
+      { "title": "Recette fonctionnelle",        "begin_on": 45, "duration": 10, "is_milestone": 0 },
+      { "title": "Jalon — Go Live",              "begin_on": 55, "duration": 0,  "is_milestone": 1 },
+      { "title": "Déploiement",                  "begin_on": 55, "duration": 5,  "is_milestone": 0 },
+      { "title": "Maintenance et stabilisation", "begin_on": 60, "duration": 30, "is_milestone": 0 }
+    ]
+  },
+  {
+    "doctype": "Project Template",
+    "name": "InovaYa - Interne",
+    "tasks": [
+      { "title": "Cadrage",                      "begin_on": 0,  "duration": 5,  "is_milestone": 0 },
+      { "title": "Plan d'action",                "begin_on": 5,  "duration": 5,  "is_milestone": 0 },
+      { "title": "Réalisation",                  "begin_on": 10, "duration": 20, "is_milestone": 0 },
+      { "title": "Validation",                   "begin_on": 30, "duration": 5,  "is_milestone": 0 },
+      { "title": "Capitalisation",               "begin_on": 35, "duration": 5,  "is_milestone": 0 },
+      { "title": "Jalon — Clôture interne",      "begin_on": 40, "duration": 0,  "is_milestone": 1 }
+    ]
+  }
+]

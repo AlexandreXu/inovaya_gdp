@@ -1,0 +1,74 @@
+[
+  {
+    "doctype": "Role",
+    "name": "Collaborateur Projet",
+    "role_name": "Collaborateur Projet",
+    "desk_access": 1,
+    "is_custom": 1,
+    "disabled": 0
+  },
+  {
+    "doctype": "Role",
+    "name": "Chef de Projet",
+    "role_name": "Chef de Projet",
+    "desk_access": 1,
+    "is_custom": 1,
+    "disabled": 0
+  },
+  {
+    "doctype": "Role",
+    "name": "Manager InovaYa",
+    "role_name": "Manager InovaYa",
+    "desk_access": 1,
+    "is_custom": 1,
+    "disabled": 0
+  },
+  {
+    "doctype": "Role",
+    "name": "Responsable GdP",
+    "role_name": "Responsable GdP",
+    "desk_access": 1,
+    "is_custom": 1,
+    "disabled": 0
+  },
+  {
+    "doctype": "Role",
+    "name": "Responsable Operations",
+    "role_name": "Responsable Operations",
+    "desk_access": 1,
+    "is_custom": 1,
+    "disabled": 0
+  },
+  {
+    "doctype": "Role",
+    "name": "Direction Generale",
+    "role_name": "Direction Generale",
+    "desk_access": 1,
+    "is_custom": 1,
+    "disabled": 0
+  },
+  {
+    "doctype": "Role",
+    "name": "Finance InovaYa",
+    "role_name": "Finance InovaYa",
+    "desk_access": 1,
+    "is_custom": 1,
+    "disabled": 0
+  },
+  {
+    "doctype": "Role",
+    "name": "Logistique Achats",
+    "role_name": "Logistique Achats",
+    "desk_access": 1,
+    "is_custom": 1,
+    "disabled": 0
+  },
+  {
+    "doctype": "Role",
+    "name": "RH InovaYa",
+    "role_name": "RH InovaYa",
+    "desk_access": 1,
+    "is_custom": 1,
+    "disabled": 0
+  }
+]
