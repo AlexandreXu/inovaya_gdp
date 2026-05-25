@@ -39,6 +39,14 @@ fixtures = [
             ["name", "in", ["IND", "CLIENT TEE", "R&D", "Digital", "Interne"]],
         ],
     },
+    # --- Tâches-modèles (v16 : les données de planification vivent sur Task, is_template=1) ---
+    {
+        "dt": "Task",
+        "filters": [
+            ["name", "like", "InovaYa-%"],
+            ["is_template", "=", 1],
+        ],
+    },
     # --- Modèles de projet InovaYa ---
     {
         "dt": "Project Template",
