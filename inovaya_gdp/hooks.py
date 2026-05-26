@@ -54,6 +54,13 @@ fixtures = [
             ["name", "like", "InovaYa -%"],
         ],
     },
+    # --- DocTypes custom InovaYa (B02+) ---
+    {
+        "dt": "DocType",
+        "filters": [
+            ["name", "in", ["Annexe Task"]],
+        ],
+    },
     # --- Espaces de travail InovaYa ---
     {
         "dt": "Workspace",
