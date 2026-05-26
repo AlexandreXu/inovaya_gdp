@@ -228,10 +228,12 @@ def _check_planning_conflicts(doc):
         for c in _find_conflicts_for_user(doc, user_name, start_str, end_str):
             d_from = _fmt_date(c["start_date"])
             d_to   = _fmt_date(c["end_date"])
-            if c["project"]:
+            if c["source_doctype"] == "Annexe Task":
+                ref = f"« {c['subject']} » (Tâche Annexe)"
+            elif c["project"]:
                 ref = f"« {c['subject']} » ({c['project']})"
             else:
-                ref = f"« {c['subject']} » (Tâche Annexe)"
+                ref = f"« {c['subject']} » (tâche sans projet)"
             conflict_lines.append(
                 f"• {full_name} est déjà assigné·e à {ref} du {d_from} au {d_to}."
             )
