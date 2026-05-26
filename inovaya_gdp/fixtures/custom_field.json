@@ -79,6 +79,17 @@
   },
   {
     "doctype": "Custom Field",
+    "name": "System Settings-inovaya_weekly_hours_threshold",
+    "dt": "System Settings",
+    "label": "Seuil heures hebdomadaires InovaYa",
+    "fieldname": "inovaya_weekly_hours_threshold",
+    "fieldtype": "Float",
+    "insert_after": "time_zone",
+    "default": "39",
+    "description": "Seuil d'heures hebdomadaires par collaborateur déclenchant une alerte email (B07). Défaut : 39h."
+  },
+  {
+    "doctype": "Custom Field",
     "name": "Material Request-inovaya_linked_task",
     "dt": "Material Request",
     "label": "Tâche liée au projet",

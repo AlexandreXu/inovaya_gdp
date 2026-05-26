@@ -74,3 +74,14 @@ doc_events = {
         "before_save": "inovaya_gdp.overrides.project.before_save",
     },
 }
+
+# ---------------------------------------------------------------------------
+# B07 — Alertes dépassement heures hebdomadaires
+# Frappe exécute l'événement "weekly" chaque dimanche à minuit (cron: 0 0 * * 0).
+# Queue "default" (< 30 s) — utiliser "weekly_long" uniquement pour des jobs > plusieurs minutes.
+# ---------------------------------------------------------------------------
+scheduler_events = {
+    "weekly": [
+        "inovaya_gdp.overrides.weekly_hours_alert.run",
+    ],
+}
