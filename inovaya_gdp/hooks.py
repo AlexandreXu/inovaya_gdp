@@ -65,3 +65,12 @@ fixtures = [
 
 after_install = "inovaya_gdp.setup.install.after_install"
 after_migrate = "inovaya_gdp.setup.install.after_migrate"
+
+# ---------------------------------------------------------------------------
+# B11 — Sélection automatique du Project Template par Project Type
+# ---------------------------------------------------------------------------
+doc_events = {
+    "Project": {
+        "before_save": "inovaya_gdp.overrides.project.before_save",
+    },
+}

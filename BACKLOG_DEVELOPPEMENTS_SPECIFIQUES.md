@@ -36,6 +36,7 @@ Ce fichier liste les besoins fonctionnels identifiés dans le CDC InovaYa qui **
 | B24 | **Pages Frappe UI — Vue Collaborateur** — interface personnalisée Vue.js/Frappe UI pour le tableau de bord individuel | Haute | Haute | B02, B03, B04, B05 | Valider les maquettes avant développement. Faut-il une version mobile/PWA ? |
 | B25 | **Pages Frappe UI — Vue Manager** — interface personnalisée pour le plan de charge manager | Haute | Haute | B01, B24 | La vue doit-elle permettre le drag & drop de tâches entre collaborateurs ? |
 | B26 | **Pages Frappe UI — Vue Direction** — tableau de bord décisionnel pour la DG | Moyenne | Haute | B09, B16, B21 | Quels KPIs sont prioritaires pour la DG ? Fréquence de rafraîchissement ? |
+| B27 | **Copie de `is_milestone` depuis les tâches-modèles** — `create_task_from_template` (ERPNext v16 upstream) ne copie pas le champ `is_milestone` lors de la génération des tâches depuis un Project Template ; les jalons sont créés sans le flag, ce qui empêche le filtre Gantt de les identifier | Haute | Faible | Task, Project Template | Limitation upstream confirmée (v16.19.1). Contournement Phase 1 : les jalons sont identifiables par leur sujet ("Jalon — …"). Correction Phase 2 : hook `after_insert` sur Task ou monkey-patch de `copy_from_template`. |
 
 ---
 
