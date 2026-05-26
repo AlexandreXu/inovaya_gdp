@@ -2,9 +2,11 @@
   {
     "doctype": "Workspace",
     "name": "InovaYa Projets",
+    "label": "InovaYa Projets",
     "title": "InovaYa — Projets",
+    "type": "Workspace",
     "category": "Modules",
-    "icon": "project",
+    "icon": "folder",
     "is_hidden": 0,
     "module": "",
     "public": 1,
@@ -18,15 +20,17 @@
       { "type": "DocType",  "label": "Projets",            "link_to": "Project",          "icon": "folder",       "color": "Blue"   },
       { "type": "DocType",  "label": "Tâches",             "link_to": "Task",             "icon": "check-square", "color": "Green"  },
       { "type": "DocType",  "label": "Modèles de Projet",  "link_to": "Project Template", "icon": "file-text",    "color": "Orange" },
-      { "type": "DocType",  "label": "Feuilles de Temps",  "link_to": "Timesheet",        "icon": "clock",      "color": "Purple" },
-      { "type": "DocType",  "label": "Types de Projet",    "link_to": "Project Type",     "icon": "list",       "color": "Gray"   }
+      { "type": "DocType",  "label": "Feuilles de Temps",  "link_to": "Timesheet",        "icon": "clock",        "color": "Purple" },
+      { "type": "DocType",  "label": "Types de Projet",    "link_to": "Project Type",     "icon": "list",         "color": "Gray"   }
     ],
     "content": "[]"
   },
   {
     "doctype": "Workspace",
     "name": "InovaYa Temps",
+    "label": "InovaYa Temps",
     "title": "InovaYa — Temps",
+    "type": "Workspace",
     "category": "Modules",
     "icon": "clock",
     "is_hidden": 0,
@@ -40,16 +44,18 @@
     "number_cards": [],
     "shortcuts": [
       { "type": "DocType",  "label": "Feuilles de Temps",          "link_to": "Timesheet",                                       "icon": "clock",       "color": "Blue"   },
-      { "type": "Report", "label": "Heures par Projet",           "link_to": "Daily Timesheet Summary",                         "icon": "bar-chart",   "color": "Green"  },
-      { "type": "Report", "label": "Heures par Employé",          "link_to": "Employee Hours Utilization Based On Timesheet",    "icon": "bar-chart-2", "color": "Orange" },
-      { "type": "DocType","label": "Activités (types de tâches)", "link_to": "Activity Type",                                   "icon": "tag",         "color": "Gray"   }
+      { "type": "Report",   "label": "Heures par Projet",           "link_to": "Daily Timesheet Summary",                         "icon": "bar-chart",   "color": "Green"  },
+      { "type": "Report",   "label": "Heures par Employé",          "link_to": "Employee Hours Utilization Based On Timesheet",    "icon": "bar-chart-2", "color": "Orange" },
+      { "type": "DocType",  "label": "Activités (types de tâches)", "link_to": "Activity Type",                                   "icon": "tag",         "color": "Gray"   }
     ],
     "content": "[]"
   },
   {
     "doctype": "Workspace",
     "name": "InovaYa Achats Projet",
+    "label": "InovaYa Achats Projet",
     "title": "InovaYa — Achats Projet",
+    "type": "Workspace",
     "category": "Modules",
     "icon": "shopping-cart",
     "is_hidden": 0,
@@ -73,7 +79,9 @@
   {
     "doctype": "Workspace",
     "name": "InovaYa Finance Projet",
+    "label": "InovaYa Finance Projet",
     "title": "InovaYa — Finance Projet",
+    "type": "Workspace",
     "category": "Modules",
     "icon": "tool",
     "is_hidden": 0,
@@ -97,7 +105,9 @@
   {
     "doctype": "Workspace",
     "name": "InovaYa RH Absences",
+    "label": "InovaYa RH Absences",
     "title": "InovaYa — RH / Absences",
+    "type": "Workspace",
     "category": "Modules",
     "icon": "users",
     "is_hidden": 0,
@@ -121,7 +131,9 @@
   {
     "doctype": "Workspace",
     "name": "InovaYa Administration GdP",
+    "label": "InovaYa Administration GdP",
     "title": "InovaYa — Administration GdP",
+    "type": "Workspace",
     "category": "Administration",
     "icon": "settings",
     "is_hidden": 0,
@@ -137,12 +149,12 @@
     "charts": [],
     "number_cards": [],
     "shortcuts": [
-      { "type": "DocType", "label": "Rôles",               "link_to": "Role",           "icon": "shield",   "color": "Blue"   },
-      { "type": "DocType", "label": "Utilisateurs",         "link_to": "User",           "icon": "user",     "color": "Gray"   },
-      { "type": "DocType", "label": "Champs Personnalisés", "link_to": "Custom Field",   "icon": "tool",     "color": "Orange" },
-      { "type": "DocType", "label": "Modèles de Projet",   "link_to": "Project Template","icon": "copy",    "color": "Green"  },
-      { "type": "DocType", "label": "Types de Projet",     "link_to": "Project Type",   "icon": "list",     "color": "Purple" },
-      { "type": "DocType", "label": "Workflows",           "link_to": "Workflow",        "icon": "git-merge","color": "Red"   }
+      { "type": "DocType", "label": "Rôles",               "link_to": "Role",            "icon": "shield",    "color": "Blue"   },
+      { "type": "DocType", "label": "Utilisateurs",         "link_to": "User",            "icon": "user",      "color": "Gray"   },
+      { "type": "DocType", "label": "Champs Personnalisés", "link_to": "Custom Field",    "icon": "tool",      "color": "Orange" },
+      { "type": "DocType", "label": "Modèles de Projet",    "link_to": "Project Template","icon": "copy",      "color": "Green"  },
+      { "type": "DocType", "label": "Types de Projet",      "link_to": "Project Type",    "icon": "list",      "color": "Purple" },
+      { "type": "DocType", "label": "Workflows",            "link_to": "Workflow",        "icon": "git-merge", "color": "Red"    }
     ],
     "content": "[]"
   }
