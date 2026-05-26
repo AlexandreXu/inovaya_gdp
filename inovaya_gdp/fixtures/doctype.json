@@ -73,6 +73,12 @@
         "description": "Pôle ou équipe concernée par cette tâche annexe (saisie libre pour le POC)."
       },
       {
+        "fieldname": "exp_start_date",
+        "fieldtype": "Date",
+        "label": "Date de début",
+        "in_list_view": 0
+      },
+      {
         "fieldname": "exp_end_date",
         "fieldtype": "Date",
         "label": "Échéance",
