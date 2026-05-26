@@ -111,7 +111,7 @@ def _get_assigned_users(doc):
     if doc.doctype == "Annexe Task":
         return [doc.assigned_to] if doc.assigned_to else []
     try:
-        return json.loads(doc._assign or "[]")
+        return json.loads(doc.get("_assign") or "[]")
     except (ValueError, TypeError):
         return []
 
