@@ -2,7 +2,7 @@
   {
     "doctype": "DocType",
     "name": "Annexe Task",
-    "module": "InovaYa GdP",
+    "module": "InovaYa",
     "custom": 1,
     "is_submittable": 0,
     "track_changes": 1,
