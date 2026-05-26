@@ -76,5 +76,29 @@
     "in_filter": 1,
     "in_standard_filter": 1,
     "description": "Permet aux managers d'analyser les heures passées par verticale métier (ex : P&ID, Textile)."
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "Material Request-inovaya_linked_task",
+    "dt": "Material Request",
+    "label": "Tâche liée au projet",
+    "fieldname": "inovaya_linked_task",
+    "fieldtype": "Link",
+    "options": "Task",
+    "insert_after": "project",
+    "in_list_view": 0,
+    "description": "Lien vers la tâche projet concernée par cette demande de matériel (B12)."
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "Purchase Order-inovaya_linked_task",
+    "dt": "Purchase Order",
+    "label": "Tâche liée au projet",
+    "fieldname": "inovaya_linked_task",
+    "fieldtype": "Link",
+    "options": "Task",
+    "insert_after": "project",
+    "in_list_view": 0,
+    "description": "Lien vers la tâche projet concernée par cette commande fournisseur (B12)."
   }
 ]
