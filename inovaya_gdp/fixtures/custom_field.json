@@ -85,7 +85,7 @@
     "fieldname": "inovaya_linked_task",
     "fieldtype": "Link",
     "options": "Task",
-    "insert_after": "project",
+    "insert_after": "schedule_date",
     "in_list_view": 0,
     "description": "Lien vers la tâche projet concernée par cette demande de matériel (B12)."
   },
