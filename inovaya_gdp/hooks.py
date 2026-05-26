@@ -73,6 +73,11 @@ doc_events = {
     "Project": {
         "before_save": "inovaya_gdp.overrides.project.before_save",
     },
+    # B23 — Alertes congé vs tâches projet
+    # Requiert l'app "hrms" (Leave Application). Silencieux si hrms absent.
+    "Leave Application": {
+        "on_submit": "inovaya_gdp.overrides.leave_application.on_submit",
+    },
 }
 
 # ---------------------------------------------------------------------------
