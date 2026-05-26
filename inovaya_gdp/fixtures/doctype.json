@@ -79,6 +79,20 @@
         "in_list_view": 1
       },
       {
+        "fieldname": "inovaya_importance",
+        "fieldtype": "Select",
+        "label": "Importance",
+        "options": "\nBasse\nHaute",
+        "in_list_view": 0,
+        "description": "Niveau d'importance stratégique (matrice Eisenhower). Modifiable par le Manager InovaYa."
+      },
+      {
+        "fieldname": "inovaya_eisenhower_info",
+        "fieldtype": "Data",
+        "label": "Quadrant Eisenhower",
+        "read_only": 1
+      },
+      {
         "fieldname": "section_break_description",
         "fieldtype": "Section Break",
         "label": "Description",

@@ -80,6 +80,13 @@ doc_events = {
     "Project": {
         "before_save": "inovaya_gdp.overrides.project.before_save",
     },
+    # B04 — Priorisation automatique Eisenhower (urgence × importance → priority)
+    "Task": {
+        "before_save": "inovaya_gdp.overrides.task.before_save",
+    },
+    "Annexe Task": {
+        "before_save": "inovaya_gdp.overrides.task.before_save",
+    },
     # B23 — Alertes congé vs tâches projet
     # Requiert l'app "hrms" (Leave Application). Silencieux si hrms absent.
     "Leave Application": {
