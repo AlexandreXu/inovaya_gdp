@@ -58,7 +58,11 @@ fixtures = [
     {
         "dt": "DocType",
         "filters": [
-            ["name", "in", ["Annexe Task"]],
+            ["name", "in", [
+                "Annexe Task",
+                "Budget Detaille InovaYa",
+                "Jalon Facturation InovaYa",
+            ]],
         ],
     },
     # --- Espaces de travail InovaYa ---
@@ -78,7 +82,8 @@ after_migrate = "inovaya_gdp.setup.install.after_migrate"
 # ---------------------------------------------------------------------------
 doc_events = {
     "Project": {
-        "before_save": "inovaya_gdp.overrides.project.before_save",
+        "before_save":  "inovaya_gdp.overrides.project.before_save",
+        "after_insert": "inovaya_gdp.overrides.project.after_insert",   # B27 — is_milestone
     },
     # B04 — Priorisation automatique Eisenhower (urgence × importance → priority)
     "Task": {
@@ -86,6 +91,10 @@ doc_events = {
     },
     "Annexe Task": {
         "before_save": "inovaya_gdp.overrides.task.before_save",
+    },
+    # B19 — Génération Sales Invoice draft lors du passage à "Validé"
+    "Jalon Facturation InovaYa": {
+        "on_update": "inovaya_gdp.overrides.jalon_facturation.on_update",
     },
     # B23 — Alertes congé vs tâches projet
     # Requiert l'app "hrms" (Leave Application). Silencieux si hrms absent.
@@ -99,6 +108,16 @@ doc_events = {
 # Frappe exécute l'événement "weekly" chaque dimanche à minuit (cron: 0 0 * * 0).
 # Queue "default" (< 30 s) — utiliser "weekly_long" uniquement pour des jobs > plusieurs minutes.
 # ---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+# B18 — Customisation JS formulaire Jalon Facturation InovaYa
+# Filtre le champ task par projet sélectionné.
+# ---------------------------------------------------------------------------
+doctype_js = {
+    "Jalon Facturation InovaYa": "public/js/jalon_facturation_inovaya.js",
+    # B17 — Jauges budgétaires dynamiques sur la fiche Projet
+    "Project": "public/js/project_inovaya.js",
+}
+
 scheduler_events = {
     "weekly": [
         "inovaya_gdp.overrides.weekly_hours_alert.run",

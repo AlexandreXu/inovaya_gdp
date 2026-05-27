@@ -1,6 +1,54 @@
 import frappe
 
 
+def after_insert(doc, method=None):
+    """
+    B27 — Propager is_milestone depuis les Task templates vers les Tasks générées.
+
+    ERPNext copy_from_template() (appelée dans Project.after_insert()) crée les
+    Tasks depuis le Project Template et renseigne le champ ``template_task`` sur
+    chaque Task créée, mais NE propage PAS is_milestone.
+
+    Notre hook doc_events ``after_insert`` se déclenche APRÈS le after_insert
+    natif d'ERPNext, donc les Tasks sont déjà créées avec template_task renseigné.
+
+    Algorithme :
+      Pour chaque Task du projet avec template_task != null,
+        lire is_milestone sur la Task template,
+        si différent de la Task créée → corriger via set_value (sans update_modified).
+    """
+    if not doc.project_template:
+        return   # Projet sans template → rien à faire
+
+    tasks = frappe.db.get_all(
+        "Task",
+        filters={"project": doc.name, "template_task": ["is", "set"]},
+        fields=["name", "template_task", "is_milestone"],
+    )
+    if not tasks:
+        return
+
+    updated = 0
+    for task in tasks:
+        tmpl_milestone = frappe.db.get_value("Task", task.template_task, "is_milestone")
+        if tmpl_milestone is None:
+            continue
+        tmpl_val = int(tmpl_milestone or 0)
+        task_val = int(task.is_milestone or 0)
+        if tmpl_val != task_val:
+            frappe.db.set_value(
+                "Task", task.name, "is_milestone", tmpl_val,
+                update_modified=False,
+            )
+            updated += 1
+
+    if updated:
+        frappe.db.commit()
+        frappe.logger().info(
+            f"[B27] Projet {doc.name} : {updated} tâche(s) mises à jour (is_milestone)."
+        )
+
+
 def before_save(doc, method=None):
     """
     B11 — Sélection automatique du Project Template par Project Type.
