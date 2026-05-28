@@ -1,0 +1,118 @@
+[
+ {
+  "doctype": "Custom Field", "dt": "System Settings",
+  "fieldname": "softia_section", "fieldtype": "Section Break",
+  "label": "Softia Core", "insert_after": "time_zone",
+  "collapsible": 1, "name": "System Settings-softia_section"
+ },
+ {
+  "doctype": "Custom Field", "dt": "System Settings",
+  "fieldname": "softia_app_name", "fieldtype": "Data",
+  "label": "Nom de l'application (sujets email)", "default": "Softia ERP",
+  "description": "Affiché dans les sujets d'email automatiques (B07, B14, B23). Ex: 'Mon ERP Prospect'.",
+  "insert_after": "softia_section", "name": "System Settings-softia_app_name"
+ },
+ {
+  "doctype": "Custom Field", "dt": "System Settings",
+  "fieldname": "softia_weekly_hours_threshold", "fieldtype": "Float",
+  "label": "Seuil heures hebdomadaires (B07)", "default": "39",
+  "description": "Seuil d'heures/semaine déclenchant l'alerte email B07. Défaut : 39h.",
+  "insert_after": "softia_app_name", "name": "System Settings-softia_weekly_hours_threshold"
+ },
+ {
+  "doctype": "Custom Field", "dt": "System Settings",
+  "fieldname": "softia_daily_hours_threshold", "fieldtype": "Float",
+  "label": "Seuil heures journalières (B05)", "default": "8",
+  "description": "Charge max/jour avant blocage planning B05. Défaut : 8h.",
+  "insert_after": "softia_weekly_hours_threshold", "name": "System Settings-softia_daily_hours_threshold"
+ },
+ {
+  "doctype": "Custom Field", "dt": "System Settings",
+  "fieldname": "softia_default_hourly_rate", "fieldtype": "Float",
+  "label": "Taux horaire ETP (€/h) (B20/B21)", "default": "50",
+  "description": "Taux utilisé pour valoriser les heures Timesheet dans B20 (budget ETPs) et B21 (marge). Défaut : 50 €/h.",
+  "insert_after": "softia_daily_hours_threshold", "name": "System Settings-softia_default_hourly_rate"
+ },
+ {
+  "doctype": "Custom Field", "dt": "System Settings",
+  "fieldname": "softia_urgency_days", "fieldtype": "Int",
+  "label": "Jours d'urgence Eisenhower (B04)", "default": "7",
+  "description": "Tâche urgente si échéance ≤ N jours. Défaut : 7.",
+  "insert_after": "softia_default_hourly_rate", "name": "System Settings-softia_urgency_days"
+ },
+ {
+  "doctype": "Custom Field", "dt": "System Settings",
+  "fieldname": "softia_hr_role", "fieldtype": "Data",
+  "label": "Rôle RH (destinataire B07)", "default": "HR Manager",
+  "description": "Rôle Frappe dont les membres reçoivent les alertes heures hebdomadaires B07.",
+  "insert_after": "softia_urgency_days", "name": "System Settings-softia_hr_role"
+ },
+ {
+  "doctype": "Custom Field", "dt": "System Settings",
+  "fieldname": "softia_importance_roles", "fieldtype": "Code", "options": "JSON",
+  "label": "Rôles autorisés à modifier l'Importance (B04)", "default": "[]",
+  "description": "JSON list de rôles Frappe. Ex: [\"Chef de Projet\",\"System Manager\"]. Vide = pas de restriction.",
+  "insert_after": "softia_hr_role", "name": "System Settings-softia_importance_roles"
+ },
+ {
+  "doctype": "Custom Field", "dt": "Task",
+  "fieldname": "softia_eisenhower_section", "fieldtype": "Section Break",
+  "label": "Priorité Eisenhower", "insert_after": "type",
+  "name": "Task-softia_eisenhower_section"
+ },
+ {
+  "doctype": "Custom Field", "dt": "Task",
+  "fieldname": "softia_importance", "fieldtype": "Select",
+  "label": "Importance", "options": "\nBasse\nHaute",
+  "description": "Niveau d'importance stratégique (matrice Eisenhower B04).",
+  "insert_after": "softia_eisenhower_section", "name": "Task-softia_importance"
+ },
+ {
+  "doctype": "Custom Field", "dt": "Task",
+  "fieldname": "softia_eisenhower_info", "fieldtype": "Data",
+  "label": "Quadrant Eisenhower", "read_only": 1, "in_list_view": 1,
+  "description": "Calculé automatiquement : urgence × importance → priorité native.",
+  "insert_after": "softia_importance", "name": "Task-softia_eisenhower_info"
+ },
+ {
+  "doctype": "Custom Field", "dt": "Task",
+  "fieldname": "softia_hours_per_day", "fieldtype": "Float",
+  "label": "Heures / jour allouées", "default": "8.0",
+  "description": "Charge journalière sur cette tâche (B05). Défaut 8h = occupation complète.",
+  "insert_after": "softia_eisenhower_info", "name": "Task-softia_hours_per_day"
+ },
+ {
+  "doctype": "Custom Field", "dt": "Task",
+  "fieldname": "softia_conflit_absence", "fieldtype": "Check",
+  "label": "Absence validée en conflit", "read_only": 1, "in_standard_filter": 1,
+  "description": "Coché automatiquement par B22 si une absence validée chevauche cette tâche.",
+  "insert_after": "softia_hours_per_day", "name": "Task-softia_conflit_absence"
+ },
+ {
+  "doctype": "Custom Field", "dt": "Purchase Order",
+  "fieldname": "softia_linked_task", "fieldtype": "Link", "options": "Task",
+  "label": "Tâche liée au projet",
+  "description": "Lien vers la tâche projet concernée par cette commande (B12/B14).",
+  "insert_after": "project", "name": "Purchase Order-softia_linked_task"
+ },
+ {
+  "doctype": "Custom Field", "dt": "Material Request",
+  "fieldname": "softia_linked_task", "fieldtype": "Link", "options": "Task",
+  "label": "Tâche liée au projet",
+  "description": "Lien vers la tâche projet concernée par cette demande de matériel (B12).",
+  "insert_after": "schedule_date", "name": "Material Request-softia_linked_task"
+ },
+ {
+  "doctype": "Custom Field", "dt": "Project",
+  "fieldname": "softia_section", "fieldtype": "Section Break",
+  "label": "Softia GdP", "collapsible": 1, "insert_after": "notes",
+  "name": "Project-softia_section"
+ },
+ {
+  "doctype": "Custom Field", "dt": "Project",
+  "fieldname": "softia_eac", "fieldtype": "Currency",
+  "label": "Reste à faire — EAC (€)",
+  "description": "Estimation des coûts restants (Estimate At Completion). Saisi manuellement.",
+  "insert_after": "softia_section", "name": "Project-softia_eac"
+ }
+]

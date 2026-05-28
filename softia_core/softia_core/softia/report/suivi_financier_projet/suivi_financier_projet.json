@@ -1,0 +1,18 @@
+{
+ "add_total_row": 0,
+ "columns": [],
+ "disabled": 0,
+ "doctype": "Report",
+ "filters": [
+  {"fieldname": "project",   "fieldtype": "Link",  "label": "Projet",     "options": "Project", "reqd": 1},
+  {"fieldname": "from_date", "fieldtype": "Date",  "label": "De"},
+  {"fieldname": "to_date",   "fieldtype": "Date",  "label": "À"}
+ ],
+ "is_standard": "Yes",
+ "module": "Softia",
+ "name": "Suivi Financier Projet",
+ "ref_doctype": "Project",
+ "report_name": "Suivi Financier Projet",
+ "report_type": "Script Report",
+ "roles": []
+}

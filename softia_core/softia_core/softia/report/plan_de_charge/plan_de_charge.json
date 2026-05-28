@@ -1,0 +1,18 @@
+{
+ "add_total_row": 0,
+ "columns": [],
+ "disabled": 0,
+ "doctype": "Report",
+ "filters": [
+  {"fieldname": "from_date", "fieldtype": "Date", "label": "De", "reqd": 1},
+  {"fieldname": "to_date",   "fieldtype": "Date", "label": "À",  "reqd": 1},
+  {"fieldname": "employee",  "fieldtype": "Link", "label": "Collaborateur", "options": "User"}
+ ],
+ "is_standard": "Yes",
+ "module": "Softia",
+ "name": "Plan de Charge",
+ "ref_doctype": "Task",
+ "report_name": "Plan de Charge",
+ "report_type": "Script Report",
+ "roles": []
+}
