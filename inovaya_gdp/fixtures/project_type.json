@@ -1,7 +1,42 @@
 [
-  {"doctype": "Project Type", "name": "IND",        "project_type": "IND"},
-  {"doctype": "Project Type", "name": "CLIENT TEE", "project_type": "CLIENT TEE"},
-  {"doctype": "Project Type", "name": "R&D",        "project_type": "R&D"},
-  {"doctype": "Project Type", "name": "Digital",    "project_type": "Digital"},
-  {"doctype": "Project Type", "name": "Interne",    "project_type": "Interne"}
+ {
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Project Type",
+  "modified": "2026-05-27 14:00:35.101006",
+  "name": "IND",
+  "project_type": "IND"
+ },
+ {
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Project Type",
+  "modified": "2026-05-27 14:00:35.112955",
+  "name": "CLIENT TEE",
+  "project_type": "CLIENT TEE"
+ },
+ {
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Project Type",
+  "modified": "2026-05-27 14:00:35.121096",
+  "name": "R&D",
+  "project_type": "R&D"
+ },
+ {
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Project Type",
+  "modified": "2026-05-27 14:00:35.131535",
+  "name": "Digital",
+  "project_type": "Digital"
+ },
+ {
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Project Type",
+  "modified": "2026-05-27 14:00:35.140463",
+  "name": "Interne",
+  "project_type": "Interne"
+ }
 ]

@@ -1,74 +1,119 @@
 [
-  {
-    "doctype": "Role",
-    "name": "Collaborateur Projet",
-    "role_name": "Collaborateur Projet",
-    "desk_access": 1,
-    "is_custom": 1,
-    "disabled": 0
-  },
-  {
-    "doctype": "Role",
-    "name": "Chef de Projet",
-    "role_name": "Chef de Projet",
-    "desk_access": 1,
-    "is_custom": 1,
-    "disabled": 0
-  },
-  {
-    "doctype": "Role",
-    "name": "Manager InovaYa",
-    "role_name": "Manager InovaYa",
-    "desk_access": 1,
-    "is_custom": 1,
-    "disabled": 0
-  },
-  {
-    "doctype": "Role",
-    "name": "Responsable GdP",
-    "role_name": "Responsable GdP",
-    "desk_access": 1,
-    "is_custom": 1,
-    "disabled": 0
-  },
-  {
-    "doctype": "Role",
-    "name": "Responsable Operations",
-    "role_name": "Responsable Operations",
-    "desk_access": 1,
-    "is_custom": 1,
-    "disabled": 0
-  },
-  {
-    "doctype": "Role",
-    "name": "Direction Generale",
-    "role_name": "Direction Generale",
-    "desk_access": 1,
-    "is_custom": 1,
-    "disabled": 0
-  },
-  {
-    "doctype": "Role",
-    "name": "Finance InovaYa",
-    "role_name": "Finance InovaYa",
-    "desk_access": 1,
-    "is_custom": 1,
-    "disabled": 0
-  },
-  {
-    "doctype": "Role",
-    "name": "Logistique Achats",
-    "role_name": "Logistique Achats",
-    "desk_access": 1,
-    "is_custom": 1,
-    "disabled": 0
-  },
-  {
-    "doctype": "Role",
-    "name": "RH InovaYa",
-    "role_name": "RH InovaYa",
-    "desk_access": 1,
-    "is_custom": 1,
-    "disabled": 0
-  }
+ {
+  "desk_access": 1,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Role",
+  "home_page": null,
+  "is_custom": 1,
+  "modified": "2026-05-27 14:00:35.164144",
+  "name": "Collaborateur Projet",
+  "restrict_to_domain": null,
+  "role_name": "Collaborateur Projet",
+  "two_factor_auth": 0
+ },
+ {
+  "desk_access": 1,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Role",
+  "home_page": null,
+  "is_custom": 1,
+  "modified": "2026-05-27 14:00:35.224367",
+  "name": "Chef de Projet",
+  "restrict_to_domain": null,
+  "role_name": "Chef de Projet",
+  "two_factor_auth": 0
+ },
+ {
+  "desk_access": 1,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Role",
+  "home_page": null,
+  "is_custom": 1,
+  "modified": "2026-05-27 14:00:35.235507",
+  "name": "Manager InovaYa",
+  "restrict_to_domain": null,
+  "role_name": "Manager InovaYa",
+  "two_factor_auth": 0
+ },
+ {
+  "desk_access": 1,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Role",
+  "home_page": null,
+  "is_custom": 1,
+  "modified": "2026-05-27 14:00:35.248016",
+  "name": "Responsable GdP",
+  "restrict_to_domain": null,
+  "role_name": "Responsable GdP",
+  "two_factor_auth": 0
+ },
+ {
+  "desk_access": 1,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Role",
+  "home_page": null,
+  "is_custom": 1,
+  "modified": "2026-05-27 14:00:35.261974",
+  "name": "Responsable Operations",
+  "restrict_to_domain": null,
+  "role_name": "Responsable Operations",
+  "two_factor_auth": 0
+ },
+ {
+  "desk_access": 1,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Role",
+  "home_page": null,
+  "is_custom": 1,
+  "modified": "2026-05-27 14:00:35.275203",
+  "name": "Direction Generale",
+  "restrict_to_domain": null,
+  "role_name": "Direction Generale",
+  "two_factor_auth": 0
+ },
+ {
+  "desk_access": 1,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Role",
+  "home_page": null,
+  "is_custom": 1,
+  "modified": "2026-05-27 14:00:35.287511",
+  "name": "Finance InovaYa",
+  "restrict_to_domain": null,
+  "role_name": "Finance InovaYa",
+  "two_factor_auth": 0
+ },
+ {
+  "desk_access": 1,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Role",
+  "home_page": null,
+  "is_custom": 1,
+  "modified": "2026-05-27 14:00:35.298318",
+  "name": "Logistique Achats",
+  "restrict_to_domain": null,
+  "role_name": "Logistique Achats",
+  "two_factor_auth": 0
+ },
+ {
+  "desk_access": 1,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Role",
+  "home_page": null,
+  "is_custom": 1,
+  "modified": "2026-05-27 14:00:35.311342",
+  "name": "RH InovaYa",
+  "restrict_to_domain": null,
+  "role_name": "RH InovaYa",
+  "two_factor_auth": 0
+ }
 ]

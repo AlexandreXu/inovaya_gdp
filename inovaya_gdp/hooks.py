@@ -72,6 +72,18 @@ fixtures = [
             ["name", "like", "InovaYa%"],
         ],
     },
+    # --- Permissions custom (Role Permission Manager) ---
+    {
+        "dt": "Custom DocPerm",
+        "filters": [
+            ["role", "in", [
+                "Responsable GdP",
+                "Collaborateur Projet",
+                "Chef de Projet",
+                "Manager InovaYa",
+            ]],
+        ],
+    },
 ]
 
 after_install = "inovaya_gdp.setup.install.after_install"

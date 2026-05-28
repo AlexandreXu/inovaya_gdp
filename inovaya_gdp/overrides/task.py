@@ -106,6 +106,27 @@ def _run_eisenhower(doc):
 # B05 — Conflits de planning
 # ---------------------------------------------------------------------------
 
+def _get_daily_hours(doc):
+    """Retourne inovaya_hours_per_day avec fallback 8h si absent ou nul."""
+    val = doc.get("inovaya_hours_per_day")
+    try:
+        v = float(val)
+        return v if v > 0 else 8.0
+    except (TypeError, ValueError):
+        return 8.0
+
+
+def _get_daily_threshold():
+    """Lit inovaya_daily_hours_threshold depuis System Settings (défaut 8h)."""
+    val = frappe.db.get_single_value(
+        "System Settings", "inovaya_daily_hours_threshold"
+    )
+    try:
+        return float(val) if val else 8.0
+    except (TypeError, ValueError):
+        return 8.0
+
+
 def _get_assigned_users(doc):
     """Retourne la liste des users assignés au document (nom Frappe, pas email)."""
     if doc.doctype == "Annexe Task":
@@ -125,13 +146,13 @@ def _get_doc_date_range(doc):
     return str(frappe.utils.getdate(start)), str(frappe.utils.getdate(end))
 
 
-def _find_conflicts_for_user(doc, user_name, start_str, end_str):
+def _find_conflicts_for_user(doc, user_name, start_str, end_str, doc_hours, threshold):
     """
-    Retourne les Task et Annexe Task chevauchant [start_str, end_str] pour user_name,
-    en excluant le document courant.
-    Champ Task._assign stocke le name Frappe (email ou 'Administrator').
-    Champ Annexe Task.assigned_to est un Link to User (name Frappe).
+    Retourne les Task et Annexe Task chevauchant [start_str, end_str] pour user_name
+    dont doc_hours + leurs inovaya_hours_per_day > threshold.
+    COALESCE(NULLIF(..., 0), 8.0) : fallback 8h/j si champ NULL ou 0.
     LIMIT 10 par table (voir BACKLOG B05).
+    Limitation pairwise documentée en B29.
     """
     exclude = doc.name or ""
     results = []
@@ -142,7 +163,8 @@ def _find_conflicts_for_user(doc, user_name, start_str, end_str):
         SELECT subject,
                project,
                DATE(exp_start_date) AS start_date,
-               DATE(exp_end_date)   AS end_date
+               DATE(exp_end_date)   AS end_date,
+               COALESCE(NULLIF(inovaya_hours_per_day, 0), 8.0) AS hours_per_day
         FROM `tabTask`
         WHERE name              != %(exclude)s
           AND is_template        = 0
@@ -159,8 +181,10 @@ def _find_conflicts_for_user(doc, user_name, start_str, end_str):
         },
         as_dict=True,
     ):
-        row["source_doctype"] = "Task"
-        results.append(row)
+        if doc_hours + row["hours_per_day"] > threshold:
+            row["source_doctype"] = "Task"
+            row["total_hours"]    = doc_hours + row["hours_per_day"]
+            results.append(row)
 
     # Annexe Task — chevauchement via assigned_to (Date : comparaison directe sans DATE())
     for row in frappe.db.sql(
@@ -168,7 +192,8 @@ def _find_conflicts_for_user(doc, user_name, start_str, end_str):
         SELECT subject,
                ''              AS project,
                exp_start_date  AS start_date,
-               exp_end_date    AS end_date
+               exp_end_date    AS end_date,
+               COALESCE(NULLIF(inovaya_hours_per_day, 0), 8.0) AS hours_per_day
         FROM `tabAnnexe Task`
         WHERE name          != %(exclude)s
           AND assigned_to    = %(user)s
@@ -185,8 +210,10 @@ def _find_conflicts_for_user(doc, user_name, start_str, end_str):
         },
         as_dict=True,
     ):
-        row["source_doctype"] = "Annexe Task"
-        results.append(row)
+        if doc_hours + row["hours_per_day"] > threshold:
+            row["source_doctype"] = "Annexe Task"
+            row["total_hours"]    = doc_hours + row["hours_per_day"]
+            results.append(row)
 
     return results
 
@@ -202,10 +229,11 @@ def _fmt_date(val):
 
 def _check_planning_conflicts(doc):
     """
-    B05 — Blocage dur sur chevauchement de planning.
-    Granularité : jour. Périmètre : Task + Annexe Task (intra + inter projets).
+    B05 — Blocage dur si charge journalière cumulée > seuil.
+    Logique pairwise : nouvelle tâche vs chaque tâche existante.
+    Seuil lu depuis System Settings.inovaya_daily_hours_threshold (défaut 8h).
+    Limitation pairwise documentée en B29 (Phase 3).
     """
-    # Ignorer les contextes système
     if frappe.flags.in_import or frappe.flags.in_migrate or frappe.flags.in_test:
         return
 
@@ -220,12 +248,17 @@ def _check_planning_conflicts(doc):
     if not start_str or not end_str:
         return  # dates incomplètes → pas de détection
 
+    doc_hours = _get_daily_hours(doc)
+    threshold = _get_daily_threshold()
+
     conflict_lines = []
     for user_name in users:
         full_name = (
             frappe.db.get_value("User", user_name, "full_name") or user_name
         )
-        for c in _find_conflicts_for_user(doc, user_name, start_str, end_str):
+        for c in _find_conflicts_for_user(
+            doc, user_name, start_str, end_str, doc_hours, threshold
+        ):
             d_from = _fmt_date(c["start_date"])
             d_to   = _fmt_date(c["end_date"])
             if c["source_doctype"] == "Annexe Task":
@@ -235,11 +268,17 @@ def _check_planning_conflicts(doc):
             else:
                 ref = f"« {c['subject']} » (tâche sans projet)"
             conflict_lines.append(
-                f"• {full_name} est déjà assigné·e à {ref} du {d_from} au {d_to}."
+                f"• {full_name} : {doc_hours}h (cette tâche)"
+                f" + {c['hours_per_day']}h {ref}"
+                f" = {c['total_hours']}h/j > {threshold}h"
+                f" — du {d_from} au {d_to}."
             )
 
     if conflict_lines:
-        msg = _("Conflit de planning détecté :") + "<br>" + "<br>".join(conflict_lines)
+        msg = (
+            _("Dépassement de charge journalière détecté :") + "<br>"
+            + "<br>".join(conflict_lines)
+        )
         frappe.throw(msg, title=_("Conflit de planning — B05"))
 
 
