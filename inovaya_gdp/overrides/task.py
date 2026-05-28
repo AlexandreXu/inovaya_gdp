@@ -128,11 +128,29 @@ def _get_daily_threshold():
 
 
 def _get_assigned_users(doc):
-    """Retourne la liste des users assignés au document (nom Frappe, pas email)."""
+    """
+    Retourne la liste des users assignés au document (nom Frappe, pas email).
+
+    Frappe v16 : le champ _assign est géré par l'assignation (sidebar "Assign To").
+    Lors d'un save depuis le formulaire web, _assign peut être absent du payload
+    si l'utilisateur n'a pas touché aux assignations. Dans ce cas, on lit la valeur
+    courante depuis la base de données (fallback DB).
+    """
     if doc.doctype == "Annexe Task":
         return [doc.assigned_to] if doc.assigned_to else []
+
+    # Valeur dans le payload de sauvegarde
+    assign_val = doc.get("_assign")
+
+    # Fallback DB : si vide et document existant → lire depuis tabTask
+    if not assign_val and doc.name:
+        try:
+            assign_val = frappe.db.get_value("Task", doc.name, "_assign")
+        except Exception:
+            pass
+
     try:
-        return json.loads(doc.get("_assign") or "[]")
+        return json.loads(assign_val or "[]")
     except (ValueError, TypeError):
         return []
 
