@@ -54,7 +54,7 @@ fixtures = [
             ["name", "like", "InovaYa -%"],
         ],
     },
-    # --- DocTypes custom InovaYa (B02+) ---
+    # --- DocTypes custom InovaYa (B02+, B10, B13) ---
     {
         "dt": "DocType",
         "filters": [
@@ -62,7 +62,16 @@ fixtures = [
                 "Annexe Task",
                 "Budget Detaille InovaYa",
                 "Jalon Facturation InovaYa",
+                "Impact Projet InovaYa",
+                "Demande Transport InovaYa",
             ]],
+        ],
+    },
+    # --- Dashboard Charts InovaYa (B09) ---
+    {
+        "dt": "Dashboard Chart",
+        "filters": [
+            ["chart_name", "like", "%InovaYa%"],
         ],
     },
     # --- Espaces de travail InovaYa ---
@@ -111,6 +120,12 @@ doc_events = {
     # B19 — Génération Sales Invoice draft lors du passage à "Validé"
     "Jalon Facturation InovaYa": {
         "on_update": "inovaya_gdp.overrides.jalon_facturation.on_update",
+    },
+    # B14 — Alertes retard commande → impact planning
+    "Purchase Order": {
+        "before_save": "inovaya_gdp.overrides.purchase_order.before_save",
+        "on_update":   "inovaya_gdp.overrides.purchase_order.on_update",
+        "on_submit":   "inovaya_gdp.overrides.purchase_order.on_submit",
     },
     # B23 — Alertes congé vs tâches projet (email manager + chef projet)
     # B22 — Synchronisation absences ↔ planning (flag inovaya_conflit_absence)
