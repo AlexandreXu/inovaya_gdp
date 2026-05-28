@@ -631,5 +631,161 @@
   ],
   "title": "InovaYa — Administration GdP",
   "type": "Workspace"
+ },
+ {
+  "app": null,
+  "charts": [
+   {
+    "chart_name": "Projets par Type InovaYa",
+    "label": null
+   },
+   {
+    "chart_name": "Charge Équipe InovaYa",
+    "label": null
+   }
+  ],
+  "content": "[]",
+  "custom_blocks": [],
+  "docstatus": 0,
+  "doctype": "Workspace",
+  "external_link": null,
+  "for_user": null,
+  "hide_custom": 0,
+  "icon": "project",
+  "indicator_color": "green",
+  "is_hidden": 0,
+  "label": "InovaYa Pôle GdP",
+  "link_to": null,
+  "link_type": "DocType",
+  "links": [
+   {
+    "dependencies": null,
+    "description": null,
+    "hidden": 0,
+    "icon": null,
+    "is_query_report": 0,
+    "label": "Projets actifs",
+    "link_count": 0,
+    "link_to": "Project",
+    "link_type": "DocType",
+    "onboard": 0,
+    "only_for": null,
+    "report_ref_doctype": null,
+    "type": "Link"
+   },
+   {
+    "dependencies": null,
+    "description": null,
+    "hidden": 0,
+    "icon": null,
+    "is_query_report": 1,
+    "label": "Plan de Charge InovaYa",
+    "link_count": 0,
+    "link_to": "Plan de Charge InovaYa",
+    "link_type": "Report",
+    "onboard": 0,
+    "only_for": null,
+    "report_ref_doctype": "Task",
+    "type": "Link"
+   },
+   {
+    "dependencies": null,
+    "description": null,
+    "hidden": 0,
+    "icon": null,
+    "is_query_report": 1,
+    "label": "Heures par Verticale InovaYa",
+    "link_count": 0,
+    "link_to": "Heures par Verticale InovaYa",
+    "link_type": "Report",
+    "onboard": 0,
+    "only_for": null,
+    "report_ref_doctype": "Timesheet",
+    "type": "Link"
+   },
+   {
+    "dependencies": null,
+    "description": null,
+    "hidden": 0,
+    "icon": null,
+    "is_query_report": 1,
+    "label": "Marge Atterrissage InovaYa",
+    "link_count": 0,
+    "link_to": "Marge Atterrissage InovaYa",
+    "link_type": "Report",
+    "onboard": 0,
+    "only_for": null,
+    "report_ref_doctype": "Project",
+    "type": "Link"
+   },
+   {
+    "dependencies": null,
+    "description": null,
+    "hidden": 0,
+    "icon": null,
+    "is_query_report": 0,
+    "label": "Timesheets",
+    "link_count": 0,
+    "link_to": "Timesheet",
+    "link_type": "DocType",
+    "onboard": 0,
+    "only_for": null,
+    "report_ref_doctype": null,
+    "type": "Link"
+   },
+   {
+    "dependencies": null,
+    "description": null,
+    "hidden": 0,
+    "icon": null,
+    "is_query_report": 0,
+    "label": "Impacts Projet",
+    "link_count": 0,
+    "link_to": "Impact Projet InovaYa",
+    "link_type": "DocType",
+    "onboard": 0,
+    "only_for": null,
+    "report_ref_doctype": null,
+    "type": "Link"
+   },
+   {
+    "dependencies": null,
+    "description": null,
+    "hidden": 0,
+    "icon": null,
+    "is_query_report": 0,
+    "label": "Transports",
+    "link_count": 0,
+    "link_to": "Demande Transport InovaYa",
+    "link_type": "DocType",
+    "onboard": 0,
+    "only_for": null,
+    "report_ref_doctype": null,
+    "type": "Link"
+   }
+  ],
+  "modified": "2026-05-28 14:19:12.203037",
+  "module": "",
+  "name": "InovaYa Pôle GdP",
+  "number_cards": [],
+  "parent_page": null,
+  "public": 1,
+  "quick_lists": [],
+  "restrict_to_domain": "",
+  "roles": [
+   {
+    "role": "Manager InovaYa"
+   },
+   {
+    "role": "Responsable GdP"
+   },
+   {
+    "role": "System Manager"
+   }
+  ],
+  "sequence_id": 99.0,
+  "shortcuts": [],
+  "title": "InovaYa Pôle GdP",
+  "type": "Workspace"
  }
 ]
