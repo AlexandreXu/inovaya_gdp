@@ -1,6 +1,140 @@
 [
  {
   "app": null,
+  "charts": [
+   {
+    "chart_name": "Projets par Type InovaYa",
+    "label": null
+   },
+   {
+    "chart_name": "Charge Équipe InovaYa",
+    "label": null
+   },
+   {
+    "chart_name": "Budget Réalisé InovaYa",
+    "label": null
+   },
+   {
+    "chart_name": "Budget Prévu InovaYa",
+    "label": null
+   }
+  ],
+  "content": "[]",
+  "custom_blocks": [],
+  "docstatus": 0,
+  "doctype": "Workspace",
+  "external_link": null,
+  "for_user": null,
+  "hide_custom": 0,
+  "icon": "bar-chart",
+  "indicator_color": "green",
+  "is_hidden": 0,
+  "label": "InovaYa Direction",
+  "link_to": null,
+  "link_type": "DocType",
+  "links": [
+   {
+    "dependencies": null,
+    "description": null,
+    "hidden": 0,
+    "icon": null,
+    "is_query_report": 1,
+    "label": "Marge Atterrissage InovaYa",
+    "link_count": 0,
+    "link_to": "Marge Atterrissage InovaYa",
+    "link_type": "Report",
+    "onboard": 0,
+    "only_for": null,
+    "report_ref_doctype": "Project",
+    "type": "Link"
+   },
+   {
+    "dependencies": null,
+    "description": null,
+    "hidden": 0,
+    "icon": null,
+    "is_query_report": 1,
+    "label": "Plan de Charge InovaYa",
+    "link_count": 0,
+    "link_to": "Plan de Charge InovaYa",
+    "link_type": "Report",
+    "onboard": 0,
+    "only_for": null,
+    "report_ref_doctype": "Task",
+    "type": "Link"
+   },
+   {
+    "dependencies": null,
+    "description": null,
+    "hidden": 0,
+    "icon": null,
+    "is_query_report": 1,
+    "label": "Suivi Financier Projet InovaYa",
+    "link_count": 0,
+    "link_to": "Suivi Financier Projet InovaYa",
+    "link_type": "Report",
+    "onboard": 0,
+    "only_for": null,
+    "report_ref_doctype": "Project",
+    "type": "Link"
+   },
+   {
+    "dependencies": null,
+    "description": null,
+    "hidden": 0,
+    "icon": null,
+    "is_query_report": 1,
+    "label": "Heures par Verticale InovaYa",
+    "link_count": 0,
+    "link_to": "Heures par Verticale InovaYa",
+    "link_type": "Report",
+    "onboard": 0,
+    "only_for": null,
+    "report_ref_doctype": "Timesheet",
+    "type": "Link"
+   },
+   {
+    "dependencies": null,
+    "description": null,
+    "hidden": 0,
+    "icon": null,
+    "is_query_report": 0,
+    "label": "Projets actifs",
+    "link_count": 0,
+    "link_to": "Project",
+    "link_type": "DocType",
+    "onboard": 0,
+    "only_for": null,
+    "report_ref_doctype": null,
+    "type": "Link"
+   }
+  ],
+  "modified": "2026-05-28 14:59:56.177259",
+  "module": "",
+  "name": "InovaYa Direction",
+  "number_cards": [],
+  "parent_page": null,
+  "public": 1,
+  "quick_lists": [],
+  "restrict_to_domain": null,
+  "roles": [
+   {
+    "role": "Direction Generale"
+   },
+   {
+    "role": "Manager InovaYa"
+   },
+   {
+    "role": "System Manager"
+   }
+  ],
+  "sequence_id": 100.0,
+  "shortcuts": [],
+  "title": "InovaYa Direction",
+  "type": "Workspace"
+ },
+ {
+  "app": null,
   "charts": [],
   "content": "[]",
   "custom_blocks": [],

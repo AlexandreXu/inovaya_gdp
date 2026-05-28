@@ -67,14 +67,10 @@ fixtures = [
             ]],
         ],
     },
-    # --- Dashboard Charts InovaYa (B09) ---
-    {
-        "dt": "Dashboard Chart",
-        "filters": [
-            ["chart_name", "like", "%InovaYa%"],
-        ],
-    },
     # --- Espaces de travail InovaYa ---
+    # NOTE B09/B26 : Dashboard Charts exclus des fixtures — ORM valide group_by_based_on
+    # lors de sync_fixtures et bloque bench migrate. Les charts sont créés via
+    # setup_b09.run + setup_b26.run appelés depuis after_install (idempotents).
     {
         "dt": "Workspace",
         "filters": [

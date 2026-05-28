@@ -1,0 +1,13 @@
+{
+ "doctype": "Page",
+ "module": "Inovaya",
+ "name": "plan-charge-equipe-inovaya",
+ "page_name": "plan-charge-equipe-inovaya",
+ "title": "Plan de Charge Équipe",
+ "roles": [
+  {"role": "Manager InovaYa"},
+  {"role": "Responsable GdP"},
+  {"role": "System Manager"}
+ ],
+ "standard": "Yes"
+}

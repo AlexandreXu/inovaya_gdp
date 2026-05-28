@@ -1,0 +1,15 @@
+{
+ "doctype": "Page",
+ "module": "Inovaya",
+ "name": "mon-planning-inovaya",
+ "page_name": "mon-planning-inovaya",
+ "title": "Mon Planning",
+ "roles": [
+  {"role": "Collaborateur Projet"},
+  {"role": "Chef de Projet"},
+  {"role": "Manager InovaYa"},
+  {"role": "Responsable GdP"},
+  {"role": "System Manager"}
+ ],
+ "standard": "Yes"
+}
