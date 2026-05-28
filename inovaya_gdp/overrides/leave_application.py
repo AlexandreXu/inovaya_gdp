@@ -4,9 +4,15 @@ from frappe.utils import getdate
 
 # ---------------------------------------------------------------------------
 # B23 — Alertes congé vs tâches projet existantes
+# B22 — Synchronisation absences ↔ planning (flag inovaya_conflit_absence)
 #
 # Prérequis : app "hrms" installée (fournit le DocType "Leave Application").
 # Le hook est enregistré dans hooks.py ; il est silencieux si hrms est absent.
+#
+# B22 on_submit : détecte les Task chevauchant le congé → marque
+#   inovaya_conflit_absence=1 (check, read_only).
+# B22 on_cancel : réinitialise inovaya_conflit_absence=0 sur les mêmes tâches,
+#   sauf si une autre Leave Application active couvre encore la tâche.
 # ---------------------------------------------------------------------------
 
 def _get_user_email(employee_id):
@@ -152,17 +158,64 @@ def _build_email_body(employee_name, leave_start, leave_end, leave_type, tasks):
     )
 
 
+# ---------------------------------------------------------------------------
+# B22 — Gestion du flag inovaya_conflit_absence sur Task
+# ---------------------------------------------------------------------------
+
+def _set_conflict_flag(task_name, value):
+    """Positionne inovaya_conflit_absence sans mettre à jour modified."""
+    frappe.db.set_value("Task", task_name, "inovaya_conflit_absence", value, update_modified=False)
+
+
+def _has_other_active_leave(user_email, task_start, task_end, exclude_la=None):
+    """
+    Retourne True si une autre Leave Application soumise (docstatus=1)
+    couvre encore la période de la tâche pour cet employé.
+    Utilisé au on_cancel pour décider si on réinitialise le flag.
+    """
+    params = {
+        "user_email": str(task_start),   # réutilisation de la variable ci-dessous
+    }
+    # Requête : LA active, même employé (via user_id), qui chevauche [task_start, task_end]
+    sql = """
+        SELECT la.name
+        FROM `tabLeave Application` la
+        INNER JOIN `tabEmployee` e ON e.name = la.employee
+        WHERE e.user_id = %(user_email)s
+          AND la.docstatus = 1
+          AND la.from_date <= %(task_end)s
+          AND la.to_date   >= %(task_start)s
+    """
+    p = {
+        "user_email": user_email,
+        "task_start": str(task_start),
+        "task_end":   str(task_end),
+    }
+    if exclude_la:
+        sql += " AND la.name != %(exclude_la)s"
+        p["exclude_la"] = exclude_la
+
+    rows = frappe.db.sql(sql, p)
+    return bool(rows)
+
+
+# ---------------------------------------------------------------------------
+# B23 — Alerte + B22 flag à la soumission
+# ---------------------------------------------------------------------------
+
 def on_submit(doc, method=None):
     """
-    B23 — Détection de conflits congé ↔ tâches projet à la soumission
-    d'une Leave Application.
+    B23 — Alerte congé ↔ tâches projet (email manager + chef projet).
+    B22 — Marquage inovaya_conflit_absence=1 sur les tâches en conflit.
 
     Comportement :
     - Aucun blocage : la Leave Application est soumise normalement.
     - Si aucun conflit : silent exit.
-    - Si conflit : email au manager direct + email du responsable de chaque
-      projet impacté (Project.owner, faute de project_manager en v16).
+    - Si conflit : flag tâches (B22) + email (B23).
     """
+    if frappe.flags.in_import or frappe.flags.in_migrate or frappe.flags.in_test:
+        return
+
     employee_id   = doc.employee
     employee_name = doc.employee_name or employee_id or "(sans nom)"
     leave_start   = getdate(doc.from_date)
@@ -172,7 +225,7 @@ def on_submit(doc, method=None):
     user_email = _get_user_email(employee_id)
     if not user_email:
         frappe.logger().warning(
-            "[B23] Leave Application %s : employee sans user_id, analyse impossible.", doc.name
+            "[B23/B22] Leave Application %s : employee sans user_id, analyse impossible.", doc.name
         )
         return
 
@@ -180,16 +233,21 @@ def on_submit(doc, method=None):
 
     if not tasks:
         frappe.logger().info(
-            "[B23] Leave Application %s (%s) : aucun conflit détecté.", doc.name, employee_name
+            "[B23/B22] Leave Application %s (%s) : aucun conflit détecté.", doc.name, employee_name
         )
         return
 
     frappe.logger().info(
-        "[B23] %d conflit(s) détecté(s) pour %s (%s → %s).",
+        "[B23/B22] %d conflit(s) détecté(s) pour %s (%s → %s).",
         len(tasks), employee_name, leave_start, leave_end,
     )
 
-    # --- Construire la liste des destinataires ---
+    # ── B22 : marquer les tâches en conflit ─────────────────────────────
+    for t in tasks:
+        _set_conflict_flag(t.name, 1)
+        frappe.logger().info("[B22] Task %s marquée inovaya_conflit_absence=1.", t.name)
+
+    # ── B23 : notification email ─────────────────────────────────────────
     recipients = set()
 
     manager_email = _get_manager_email(employee_id)
@@ -198,7 +256,6 @@ def on_submit(doc, method=None):
     else:
         frappe.logger().warning("[B23] Manager introuvable pour %s.", employee_name)
 
-    # Un email par projet impacté (owner du projet)
     projects_seen = set()
     for t in tasks:
         if t.project and t.project not in projects_seen:
@@ -232,10 +289,63 @@ def on_submit(doc, method=None):
 
 
 # ---------------------------------------------------------------------------
+# B22 — Réinitialisation du flag à l'annulation
+# ---------------------------------------------------------------------------
+
+def on_cancel(doc, method=None):
+    """
+    B22 — Réinitialise inovaya_conflit_absence=0 sur les tâches qui chevauchaient
+    le congé annulé, SAUF si une autre Leave Application active couvre encore la tâche.
+    """
+    if frappe.flags.in_import or frappe.flags.in_migrate or frappe.flags.in_test:
+        return
+
+    employee_id   = doc.employee
+    employee_name = doc.employee_name or employee_id or "(sans nom)"
+    leave_start   = getdate(doc.from_date)
+    leave_end     = getdate(doc.to_date)
+
+    user_email = _get_user_email(employee_id)
+    if not user_email:
+        frappe.logger().warning(
+            "[B22] on_cancel : employee %s sans user_id, réinitialisation impossible.", employee_id
+        )
+        return
+
+    tasks = _find_conflicting_tasks(user_email, leave_start, leave_end)
+    if not tasks:
+        return
+
+    reset_count = 0
+    for t in tasks:
+        # Ne réinitialiser que si aucune autre LA active couvre encore cette tâche
+        if not _has_other_active_leave(
+            user_email,
+            task_start=t.start_date,
+            task_end=t.end_date,
+            exclude_la=doc.name,
+        ):
+            _set_conflict_flag(t.name, 0)
+            reset_count += 1
+            frappe.logger().info(
+                "[B22] Task %s : inovaya_conflit_absence réinitialisé à 0.", t.name
+            )
+        else:
+            frappe.logger().info(
+                "[B22] Task %s : autre absence active → flag maintenu à 1.", t.name
+            )
+
+    frappe.logger().info(
+        "[B22] on_cancel %s (%s) : %d tâche(s) réinitialisée(s) sur %d.",
+        doc.name, employee_name, reset_count, len(tasks),
+    )
+
+
+# ---------------------------------------------------------------------------
 # Utilitaire : test dry_run en console sans Leave Application réelle
 # ---------------------------------------------------------------------------
 
-def dry_run(employee_id, from_date, to_date, leave_type="Congés payés"):
+def dry_run(employee_id, from_date, to_date, leave_type="Congés payés"):  # noqa: E501
     """
     Simule on_submit sans envoyer de mail.
     Usage depuis bench console :

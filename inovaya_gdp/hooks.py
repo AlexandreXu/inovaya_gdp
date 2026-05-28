@@ -108,10 +108,12 @@ doc_events = {
     "Jalon Facturation InovaYa": {
         "on_update": "inovaya_gdp.overrides.jalon_facturation.on_update",
     },
-    # B23 — Alertes congé vs tâches projet
+    # B23 — Alertes congé vs tâches projet (email manager + chef projet)
+    # B22 — Synchronisation absences ↔ planning (flag inovaya_conflit_absence)
     # Requiert l'app "hrms" (Leave Application). Silencieux si hrms absent.
     "Leave Application": {
         "on_submit": "inovaya_gdp.overrides.leave_application.on_submit",
+        "on_cancel": "inovaya_gdp.overrides.leave_application.on_cancel",
     },
 }
 
