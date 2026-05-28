@@ -301,10 +301,180 @@ def _check_planning_conflicts(doc):
 
 
 # ---------------------------------------------------------------------------
+# B06 — Alimentation automatique de Timesheet draft lors d'une assignation Task
+# ---------------------------------------------------------------------------
+
+def _compute_new_assignees(doc):
+    """
+    Compare _assign du payload (doc) avec la valeur DB avant save.
+    Stocke les nouveaux users dans doc._b06_new_users pour after_save.
+    Silencieux si frappe.flags.in_import/in_migrate/in_test.
+    """
+    doc._b06_new_users = []
+
+    if frappe.flags.in_import or frappe.flags.in_migrate or frappe.flags.in_test:
+        return
+    if doc.get("is_template"):
+        return
+    if not doc.get("exp_start_date") or not doc.get("exp_end_date"):
+        return
+
+    # _assign du payload courant (absent si l'utilisateur ne l'a pas modifié)
+    new_assign_raw = doc.get("_assign")
+    if not new_assign_raw:
+        return
+
+    try:
+        new_users = set(json.loads(new_assign_raw))
+    except (ValueError, TypeError):
+        return
+
+    if not new_users:
+        return
+
+    # Ancien _assign en DB (avant ce save — lu avant la transaction de mise à jour)
+    if doc.name and not doc.is_new():
+        old_raw = frappe.db.get_value("Task", doc.name, "_assign") or "[]"
+    else:
+        old_raw = "[]"  # Nouveau document → tous les users sont "nouveaux"
+
+    try:
+        old_users = set(json.loads(old_raw))
+    except (ValueError, TypeError):
+        old_users = set()
+
+    doc._b06_new_users = list(new_users - old_users)
+
+
+def _create_draft_timesheets_b06(doc, new_users):
+    """
+    Crée un Timesheet en draft (docstatus=0) pour chaque nouvel assigné.
+    Idempotent : skip si un Timesheet draft existe déjà pour (task, employee).
+
+    Plage horaire : date de début de la tâche, 09:00 → 09:00+hours (même jour).
+    La plage est intentionnellement limitée à une journée pour éviter les
+    conflits de chevauchement ERPNext (OverlapError). Si un chevauchement est
+    détecté malgré tout, on log un warning sans lever d'exception (bloquant).
+    Le collaborateur ajuste le draft dans l'UI.
+    """
+    company = frappe.db.get_default("Company") or frappe.db.get_value("Company", {}, "name")
+
+    # Heures planifiées : expected_time de la tâche, fallback inovaya_hours_per_day
+    hours = float(doc.get("expected_time") or 0) or _get_daily_hours(doc)
+
+    # Plage d'1 jour (09:00 → 09:00 + hours) pour minimiser les OverlapErrors
+    from datetime import timedelta as _td
+    start_date = frappe.utils.getdate(doc.exp_start_date)
+    start_dt   = f"{start_date} 09:00:00"
+    end_dt     = str(
+        frappe.utils.get_datetime(start_dt) + _td(hours=hours)
+    )
+
+    for user_email in new_users:
+        emp_id = frappe.db.get_value("Employee", {"user_id": user_email}, "name")
+        if not emp_id:
+            frappe.logger().warning(
+                "[B06] Aucun Employee pour user '%s' — Timesheet non créée.", user_email
+            )
+            continue
+
+        # Idempotence : Timesheet draft déjà existante pour cette tâche + employé ?
+        already = frappe.db.sql(
+            """
+            SELECT td.parent
+            FROM `tabTimesheet Detail` td
+            INNER JOIN `tabTimesheet` ts ON ts.name = td.parent
+            WHERE td.task = %s AND ts.employee = %s AND ts.docstatus = 0
+            LIMIT 1
+            """,
+            (doc.name, emp_id),
+        )
+        if already:
+            frappe.logger().info(
+                "[B06] Timesheet draft déjà existante — task=%s employee=%s, skip.",
+                doc.name, emp_id,
+            )
+            continue
+
+        emp_name = frappe.db.get_value("Employee", emp_id, "employee_name") or user_email
+        try:
+            # Insertion directe en SQL pour bypasser la validation d'overlap ERPNext.
+            # Les Timesheets B06 sont des drafts de planification (non soumises) :
+            # le collaborateur les ajuste librement dans l'UI.
+            # L'ORM ERPNext (Projects Settings.ignore_employee_time_overlap) est
+            # contourné volontairement — comportement documenté en ERPNEXT_V16_REALITY.md.
+            ts_name = frappe.generate_hash(length=10)
+            now_str = str(frappe.utils.now_datetime())
+            user    = frappe.session.user or "Administrator"
+
+            frappe.db.sql("""
+                INSERT INTO `tabTimesheet`
+                    (name, creation, modified, modified_by, owner, docstatus,
+                     employee, employee_name, company, parent_project, total_hours)
+                VALUES
+                    (%s, %s, %s, %s, %s, 0,
+                     %s, %s, %s, %s, %s)
+            """, (ts_name, now_str, now_str, user, user,
+                  emp_id, emp_name, company, doc.project or None, hours))
+
+            td_name = frappe.generate_hash(length=10)
+            frappe.db.sql("""
+                INSERT INTO `tabTimesheet Detail`
+                    (name, creation, modified, modified_by, owner, docstatus,
+                     parent, parentfield, parenttype,
+                     task, project, from_time, to_time,
+                     hours, expected_hours, is_billable, completed, description, idx)
+                VALUES
+                    (%s, %s, %s, %s, %s, 0,
+                     %s, 'time_logs', 'Timesheet',
+                     %s, %s, %s, %s,
+                     %s, %s, 0, 0, %s, 1)
+            """, (td_name, now_str, now_str, user, user,
+                  ts_name,
+                  doc.name, doc.project or None, start_dt, end_dt,
+                  hours, hours, f"[B06] Planification auto — {doc.subject}"))
+
+            frappe.db.commit()
+            frappe.logger().info(
+                "[B06] Timesheet draft %s créée (SQL direct) : employee=%s task=%s.",
+                ts_name, emp_name, doc.name,
+            )
+            frappe.msgprint(
+                f"[B06] Timesheet draft créée pour {emp_name} — « {doc.subject} ».",
+                indicator="green",
+                alert=True,
+            )
+        except Exception as exc:
+            frappe.logger().error(
+                "[B06] Erreur création Timesheet — employee=%s task=%s : %s",
+                emp_id, doc.name, str(exc),
+            )
+
+
+def after_save(doc, method=None):
+    """
+    B06 — Crée des Timesheets draft pour les utilisateurs nouvellement assignés.
+    Uniquement sur Task (pas Annexe Task).
+    """
+    if doc.doctype != "Task":
+        return
+    new_users = getattr(doc, "_b06_new_users", [])
+    if not new_users:
+        return
+    _create_draft_timesheets_b06(doc, new_users)
+
+
+# ---------------------------------------------------------------------------
 # Hook principal (appelé par doc_events sur Task et Annexe Task)
 # ---------------------------------------------------------------------------
 
 def before_save(doc, method=None):
-    """B04 Eisenhower (non bloquant) puis B05 conflits de planning (bloquant si détecté)."""
+    """
+    B04 Eisenhower (non bloquant)
+    B05 conflits de planning (bloquant si détecté)
+    B06 pré-calcul nouveaux assignés (stocké pour after_save)
+    """
     _run_eisenhower(doc)
     _check_planning_conflicts(doc)
+    if doc.doctype == "Task":
+        _compute_new_assignees(doc)

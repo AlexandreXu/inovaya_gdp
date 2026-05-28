@@ -98,8 +98,12 @@ doc_events = {
         "after_insert": "inovaya_gdp.overrides.project.after_insert",   # B27 — is_milestone
     },
     # B04 — Priorisation automatique Eisenhower (urgence × importance → priority)
+    # B05 — Conflits de planning (blocage dur)
+    # B06 — Timesheet draft auto à l'assignation (pré-calcul dans before_save,
+    #        création effective dans after_save — Task uniquement)
     "Task": {
         "before_save": "inovaya_gdp.overrides.task.before_save",
+        "after_save":  "inovaya_gdp.overrides.task.after_save",
     },
     "Annexe Task": {
         "before_save": "inovaya_gdp.overrides.task.before_save",
@@ -133,7 +137,12 @@ doctype_js = {
 }
 
 scheduler_events = {
+    # B07 — Alertes dépassement heures hebdomadaires (chaque dimanche)
     "weekly": [
         "inovaya_gdp.overrides.weekly_hours_alert.run",
+    ],
+    # B20 — Mise à jour budget ETPs depuis Timesheets soumises (chaque jour)
+    "daily": [
+        "inovaya_gdp.overrides.budget_update.run",
     ],
 }
